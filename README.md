@@ -5,9 +5,17 @@ This script is intended to be utilized with KVM hypervisors to determine their c
 
 ## Prerequisites
 
-KVM Hypervisor(s) set up with [Libvirt](https://libvirt.org)
+KVM hypervisor(s) set up with [Libvirt](https://libvirt.org)
+
+Hypervisor(s) set up with a common domain and [Libvirt](https://libvirt.org) storage pool name.
 
 ## Usage
+
+Download the script to a location from which your hypervisor(s) can be connected to through `virsh -c qemu+tls//$DOMAIN/system`. 
+
+Modify the values at the top of the script under `MODIFY` to reflect your setup. 
+
+Then run the following:
 
 ```bash
 echo "LIST OF SPACE SEPERATED HOSTNAMES" | ./pathtoscript/kvmalloc
