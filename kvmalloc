@@ -17,11 +17,10 @@ RED='\033[1;31m'
 NC='\033[0m'
 
 # Main
-for hfqdn in "${hosts[@]}"
-  do
-		printf "|\n${RED}HOST: $hfqdn$dom${NC}\n"
-		eval "$vb$hfqdn$ve pool-info $pool" |awk 'BEGIN {printf "STORAGE:|"} /Capacity|Allocation|Available/{printf "%s|%s %s|", $1, $2, $3}'
-		amem=$(eval "$vb$hfqdn$ve domstats --balloon" |awk 'match($0, /maximum=([0-9]+)/, m) {amem+=m[1]} END {print amem/1024}')
-		tmem=$(eval "$vb$hfqdn$ve nodeinfo" |awk '/Memory size/{print $3/1024}')
-		echo "$tmem $amem" |awk '{printf "\nMEMORY:|Total:|%.2f MiB|Allocated:|%.2f MiB|Unallocated:|%.2f MiB\n|\n", $1, $2, $1-$2}'
+for hfqdn in "${hosts[@]}"; do
+	printf "|\n${RED}HOST: $hfqdn$dom${NC}\n"
+	eval "$vb$hfqdn$ve pool-info $pool" |awk 'BEGIN {printf "STORAGE:|"} /Capacity|Allocation|Available/{printf "%s|%s %s|", $1, $2, $3}'
+	amem=$(eval "$vb$hfqdn$ve domstats --balloon" |awk 'match($0, /maximum=([0-9]+)/, m) {amem+=m[1]} END {print amem/1024}')
+	tmem=$(eval "$vb$hfqdn$ve nodeinfo" |awk '/Memory size/{print $3/1024}')
+	echo "$tmem $amem" |awk '{printf "\nMEMORY:|Total:|%.2f MiB|Allocated:|%.2f MiB|Unallocated:|%.2f MiB\n|\n", $1, $2, $1-$2}'
 done | column -ts "|"
