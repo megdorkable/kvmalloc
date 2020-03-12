@@ -1,5 +1,8 @@
 # kvmalloc
 
+## Getting Started
+This script is intended to be utilized with KVM hypervisors to determine their current storage and memory allocations.
+
 ## Prerequisites
 
 KVM Hypervisor(s) set up with [Libvirt](https://libvirt.org)
